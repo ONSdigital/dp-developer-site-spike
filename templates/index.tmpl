@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ONS developer site</title>
+    <style>
+        dd, dt {
+            display: inline-block;
+            font-style: normal;
+        }
+
+        dd:first-of-type {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<h2>{{.Info.Title}}</h2>
+{{.Info.Description}}
+<dl>
+    <dd>Base path:</dd>
+    <dt>{{.BasePath}}</dt>
+    <dd>Version:</dd>
+    <dt>{{.Info.Version}}</dt>
+</dl>
+<h3>Paths</h3>
+{{ range $key, $path := .Paths.Paths }}
+    <h4>{{$key}}</h4>
+    {{if $path.Get}}
+        <h5>GET</h5>
+        <p>{{$path.Get.Description}}</p>
+        <p>
+        {{range $path.Get.Parameters}}
+            {{.Name}}
+            {{.In}}
+            {{.Description}}
+            {{.Required}}
+        {{end}}
+        </p>
+    {{end}}
+    {{/*
+    {{if $path.Post}}}
+        <p>
+            {{$path.Post.Description}}
+            {{range $path.Post.Parameters}}
+                {{.}}
+            {{end}}
+        </p>
+    {{end}}
+    {{if $path.Put}}
+        <p>
+            {{$path.Put.Description}}
+            {{range $path.Put.Parameters}}
+                {{.}}
+            {{end}}
+        </p>
+    {{end}}
+    {{if $path.Delete}}
+        <p>
+            {{$path.Delete.Description}}
+            {{range $path.Delete.Parameters}}
+                {{.}}
+            {{end}}
+        </p>
+    {{end}}
+    {{if $path.Options}}
+        <p>
+            {{$path.Options.Description}}
+            {{range $path.Options.Parameters}}
+                {{.}}
+            {{end}}
+        </p>
+    {{end}}
+    {{if $path.Head}}
+        <p>
+            {{$path.Head.Description}}
+            {{range $path.Head.Parameters}}
+                {{.}}
+            {{end}}
+        </p>
+    {{end}}
+    {{if $path.Patch}}
+        <p>
+            {{$path.Patch.Description}}
+            {{range $path.Patch.Parameters}}
+                {{.}}
+            {{end}}
+        </p>
+    {{end}}
+    */}}
+{{ end }}
+</body>
+</html>

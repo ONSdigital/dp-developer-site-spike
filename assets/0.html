@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ONS developer site</title>
+    <style>
+        dd, dt {
+            display: inline-block;
+            font-style: normal;
+        }
+
+        dd:first-of-type {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<h2>Dataset API</h2>
+An API used to query information about datasets published by the ONS.
+<dl>
+    <dd>Base path:</dd>
+    <dt>/v1</dt>
+    <dd>Version:</dd>
+    <dt>1.0.0</dt>
+</dl>
+<h3>Paths</h3>
+
+    <h4>/datasets</h4>
+    
+        <h5>GET</h5>
+        <p>Returns a list of all datasets provided by the ONS that can be filtered using the filter API</p>
+        <p>
+        
+            limit
+            query
+            The number of resources to be returned
+            false
+        
+            offset
+            query
+            The first row of resources to retrieve, starting at 0. Use this parameter as a pagination mechanism along with the limit parameter
+            false
+        
+        </p>
+    
+    
+
+    <h4>/datasets/{id}</h4>
+    
+        <h5>GET</h5>
+        <p>The dataset contains all high level information, for additional details see editions or versions of a dataset. </p>
+        <p>
+        
+            id
+            path
+            Id that represents a dataset
+            true
+        
+        </p>
+    
+    
+
+    <h4>/datasets/{id}/editions</h4>
+    
+        <h5>GET</h5>
+        <p>Get a list of editions from a type of dataset</p>
+        <p>
+        
+            id
+            path
+            Id that represents a dataset
+            true
+        
+            limit
+            query
+            The number of resources to be returned
+            false
+        
+            offset
+            query
+            The first row of resources to retrieve, starting at 0. Use this parameter as a pagination mechanism along with the limit parameter
+            false
+        
+        </p>
+    
+    
+
+    <h4>/datasets/{id}/editions/{edition}</h4>
+    
+        <h5>GET</h5>
+        <p>The edition contains a link to all versions</p>
+        <p>
+        
+            edition
+            path
+            An edition of a dataset
+            true
+        
+            id
+            path
+            Id that represents a dataset
+            true
+        
+        </p>
+    
+    
+
+    <h4>/datasets/{id}/editions/{edition}/versions</h4>
+    
+        <h5>GET</h5>
+        <p>Get a list of all versions for an edition of a dataset</p>
+        <p>
+        
+            edition
+            path
+            An edition of a dataset
+            true
+        
+            id
+            path
+            Id that represents a dataset
+            true
+        
+            limit
+            query
+            The number of resources to be returned
+            false
+        
+            offset
+            query
+            The first row of resources to retrieve, starting at 0. Use this parameter as a pagination mechanism along with the limit parameter
+            false
+        
+        </p>
+    
+    
+
+    <h4>/datasets/{id}/editions/{edition}/versions/{version}</h4>
+    
+        <h5>GET</h5>
+        <p>Get a specific version and edition of a dataset</p>
+        <p>
+        
+            edition
+            path
+            An edition of a dataset
+            true
+        
+            id
+            path
+            Id that represents a dataset
+            true
+        
+            version
+            path
+            A version of a dataset
+            true
+        
+        </p>
+    
+    
+
+    <h4>/datasets/{id}/editions/{edition}/versions/{version}/dimensions</h4>
+    
+        <h5>GET</h5>
+        <p>Get all dimensions which are used in the dataset</p>
+        <p>
+        
+            edition
+            path
+            An edition of a dataset
+            true
+        
+            id
+            path
+            Id that represents a dataset
+            true
+        
+            version
+            path
+            A version of a dataset
+            true
+        
+            limit
+            query
+            The number of resources to be returned
+            false
+        
+            offset
+            query
+            The first row of resources to retrieve, starting at 0. Use this parameter as a pagination mechanism along with the limit parameter
+            false
+        
+        </p>
+    
+    
+
+    <h4>/datasets/{id}/editions/{edition}/versions/{version}/dimensions/{dimension}/options</h4>
+    
+        <h5>GET</h5>
+        <p>Get a list of all options which appear in this dimension and dataset</p>
+        <p>
+        
+            dimension
+            path
+            A dimension from a dataset
+            true
+        
+            edition
+            path
+            An edition of a dataset
+            true
+        
+            id
+            path
+            Id that represents a dataset
+            true
+        
+            version
+            path
+            A version of a dataset
+            true
+        
+            limit
+            query
+            The number of resources to be returned
+            false
+        
+            offset
+            query
+            The first row of resources to retrieve, starting at 0. Use this parameter as a pagination mechanism along with the limit parameter
+            false
+        
+        </p>
+    
+    
+
+    <h4>/datasets/{id}/editions/{edition}/versions/{version}/metadata</h4>
+    
+        <h5>GET</h5>
+        <p>Get all metadata relevant to a version</p>
+        <p>
+        
+            edition
+            path
+            An edition of a dataset
+            true
+        
+            id
+            path
+            Id that represents a dataset
+            true
+        
+            version
+            path
+            A version of a dataset
+            true
+        
+        </p>
+    
+    
+
+    <h4>/instances</h4>
+    
+        <h5>GET</h5>
+        <p>Get a list of instances which has been paged</p>
+        <p>
+        
+            limit
+            query
+            The number of resources to be returned
+            false
+        
+            offset
+            query
+            The first row of resources to retrieve, starting at 0. Use this parameter as a pagination mechanism along with the limit parameter
+            false
+        
+            state
+            query
+            A comma separated list of state values to filter on (e.g. ‘completed,edition-confirmed’)
+            false
+        
+        </p>
+    
+    
+
+    <h4>/instances/{instance_id}</h4>
+    
+        <h5>GET</h5>
+        <p>Get the current state of an instance, this includes all events which have happened.</p>
+        <p>
+        
+            instance_id
+            path
+            A unique id for an instance
+            true
+        
+        </p>
+    
+    
+
+    <h4>/instances/{instance_id}/dimensions</h4>
+    
+        <h5>GET</h5>
+        <p>Get all dimensions from an instance</p>
+        <p>
+        
+            instance_id
+            path
+            A unique id for an instance
+            true
+        
+        </p>
+    
+    
+
+    <h4>/instances/{instance_id}/dimensions/{dimension}</h4>
+    
+    
+
+    <h4>/instances/{instance_id}/dimensions/{dimension}/options</h4>
+    
+        <h5>GET</h5>
+        <p>Get all unique options from a dimension</p>
+        <p>
+        
+            instance_id
+            path
+            A unique id for an instance
+            true
+        
+            dimension
+            path
+            A dimension from a dataset
+            true
+        
+        </p>
+    
+    
+
+    <h4>/instances/{instance_id}/dimensions/{dimension}/options/{option}</h4>
+    
+    
+
+    <h4>/instances/{instance_id}/dimensions/{dimension}/options/{option}/node_id/{node_id}</h4>
+    
+    
+
+    <h4>/instances/{instance_id}/events</h4>
+    
+    
+
+    <h4>/instances/{instance_id}/import_tasks</h4>
+    
+    
+
+    <h4>/instances/{instance_id}/inserted_observations/{inserted_observations}</h4>
+    
+    
+
+    <h4>/search/datasets</h4>
+    
+        <h5>GET</h5>
+        <p>Perform a search on all published datasets by the ONS</p>
+        <p>
+        
+            limit
+            query
+            The number of resources to be returned
+            false
+        
+            offset
+            query
+            The first row of resources to retrieve, starting at 0. Use this parameter as a pagination mechanism along with the limit parameter
+            false
+        
+            q
+            query
+            The query text to search datasets with
+            false
+        
+        </p>
+    
+    
+
+</body>
+</html>
