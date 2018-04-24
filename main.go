@@ -9,9 +9,28 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/alecthomas/template"
 	"github.com/go-openapi/spec"
+	"github.com/unrolled/render"
 )
+
+type SiteStructure struct {
+	Title string
+	APIs  []API
+	Nav   []NavItem
+	Sitemap
+}
+
+type NavItem struct {
+	Title string
+	URI   string
+}
+
+type API struct {
+	spec *spec.Swagger
+}
+
+type Sitemap struct {
+}
 
 func main() {
 	specURLs := []string{
@@ -19,48 +38,46 @@ func main() {
 		"http://localhost:9900/dp-import-api/swagger.json",
 	}
 
+	renderer := render.New(render.Options{
+		Layout:     "layout",
+		IndentJSON: true,
+	})
+
 	for index, specURL := range specURLs {
-		fmt.Printf("Getting swagger spec: %s", specURL)
-		req, err := http.Get(specURL)
-		if err != nil {
-			log.Println(err)
-			return
-		}
-		defer req.Body.Close()
+		func() {
+			fmt.Printf("Getting swagger spec: %s\n", specURL)
+			req, err := http.Get(specURL)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+			defer req.Body.Close()
 
-		bodyBytes, err := ioutil.ReadAll(req.Body)
-		if err != nil {
-			log.Println(err)
-			return
-		}
+			bodyBytes, err := ioutil.ReadAll(req.Body)
+			if err != nil {
+				log.Println(err)
+				return
+			}
 
-		var APISpec spec.Swagger
-		err = json.Unmarshal(bodyBytes, &APISpec)
-		if err != nil {
-			log.Println(err)
-			return
-		}
+			var APISpec spec.Swagger
+			err = json.Unmarshal(bodyBytes, &APISpec)
+			if err != nil {
+				log.Println(err)
+				return
+			}
 
-		spec.ExpandSpec(&APISpec, &spec.ExpandOptions{})
+			spec.ExpandSpec(&APISpec, &spec.ExpandOptions{})
 
-		tmpl, err := template.ParseFiles("templates/index.tmpl")
-		if err != nil {
-			log.Println(err)
-			return
-		}
+			// TODO we should be creating the directory structure and storing as `index.html` in each one of those.
+			file, err := os.Create("assets/" + strconv.Itoa(index) + ".html")
+			if err != nil {
+				log.Println(err)
+				return
+			}
 
-		file, err := os.Create("assets/" + strconv.Itoa(index) + ".html")
-		if err != nil {
-			log.Println(err)
-			return
-		}
+			defer file.Close()
 
-		defer file.Close()
-
-		err = tmpl.Execute(file, APISpec)
-		if err != nil {
-			log.Print("execute: ", err)
-			return
-		}
+			renderer.HTML(file, 0, "api", APISpec)
+		}()
 	}
 }
