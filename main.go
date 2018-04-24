@@ -7,9 +7,11 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
+	"path/filepath"
+	"strings"
 
 	"github.com/go-openapi/spec"
+	"github.com/russross/blackfriday"
 	"github.com/unrolled/render"
 )
 
@@ -32,10 +34,14 @@ type API struct {
 type Sitemap struct {
 }
 
+type sourceSpec struct {
+	ID, URL string
+}
+
 func main() {
-	specURLs := []string{
-		"http://localhost:9900/dp-dataset-api/swagger.json",
-		"http://localhost:9900/dp-import-api/swagger.json",
+	sourceSpecs := []sourceSpec{
+		{"dataset-api", "http://localhost:9900/dp-dataset-api/swagger.json"},
+		{"import-api", "http://localhost:9900/dp-import-api/swagger.json"},
 	}
 
 	renderer := render.New(render.Options{
@@ -43,10 +49,42 @@ func main() {
 		IndentJSON: true,
 	})
 
-	for index, specURL := range specURLs {
+	err := filepath.Walk("static", func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Printf("prevent panic by handling failure accessing a path %q: %v\n", "static", err)
+			return err
+		}
+		if info.IsDir() {
+			fmt.Printf("Creating directory: %q\n", path)
+			os.MkdirAll("assets"+strings.TrimPrefix(path, "static"), info.Mode())
+			return nil
+		}
+
+		markdownNameParts := strings.SplitAfter(info.Name(), ".")
+		if markdownNameParts[1] == "md" || markdownNameParts[1] == "markdown" {
+			convertedMarkdown := blackfriday.MarkdownBasic(convertMarkdownFileToHTML(path))
+			fileDirectory := "assets" + strings.TrimPrefix(path, "static")
+			newFilePath := strings.TrimSuffix(fileDirectory, info.Name())
+			fmt.Println(newFilePath)
+			err := ioutil.WriteFile(newFilePath+markdownNameParts[0]+"html", convertedMarkdown, 0644)
+			if err != nil {
+				fmt.Println(err)
+				return nil
+			}
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		fmt.Printf("error walking the path %q: %v\n", "static", err)
+		return
+	}
+
+	for _, sourceSpec := range sourceSpecs {
 		func() {
-			fmt.Printf("Getting swagger spec: %s\n", specURL)
-			req, err := http.Get(specURL)
+			fmt.Printf("Getting swagger spec: %s\n", sourceSpec.URL)
+			req, err := http.Get(sourceSpec.URL)
 			if err != nil {
 				log.Println(err)
 				return
@@ -66,10 +104,12 @@ func main() {
 				return
 			}
 
+			os.MkdirAll("assets/specs/"+sourceSpec.ID, os.FileMode(int(0777)))
+			fmt.Printf("Creating directory: %q\n", "assets/specs/"+sourceSpec.ID)
+
 			spec.ExpandSpec(&APISpec, &spec.ExpandOptions{})
 
-			// TODO we should be creating the directory structure and storing as `index.html` in each one of those.
-			file, err := os.Create("assets/" + strconv.Itoa(index) + ".html")
+			file, err := os.Create("assets/specs/" + sourceSpec.ID + "/index.html")
 			if err != nil {
 				log.Println(err)
 				return
@@ -80,4 +120,14 @@ func main() {
 			renderer.HTML(file, 0, "api", APISpec)
 		}()
 	}
+}
+
+func convertMarkdownFileToHTML(path string) []byte {
+	bytes, err := ioutil.ReadFile(path)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+
+	return bytes
 }
