@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/go-openapi/spec"
@@ -162,6 +163,10 @@ func main() {
 					Methods: getMethodsData(value),
 				})
 			}
+
+			sort.Slice(APIData.Paths, func(i, j int) bool {
+				return APIData.Paths[i].Title < APIData.Paths[j].Title
+			})
 
 			APIs = append(APIs, APIData)
 		}()
