@@ -36,16 +36,20 @@
     <h3>Responses</h3>
     
     
-        200 - Failed to process the request due to an internal error
-        <br>
-    
-        400 - Failed to process the request due to an internal error
-        <br>
-    
-        404 - Failed to process the request due to an internal error
+        404 - No dimensions found for version of an edition of a dataset using the id, edition and version provided
         <br>
     
         500 - Failed to process the request due to an internal error
+        <br>
+    
+        200 - A json list of dimensions
+        <br>
+    
+        400 - Invalid request, reasons can be one of the following:
+  * dataset id was incorrect
+  * edition was incorrect
+  * version was incorrect
+
         <br>
     
 

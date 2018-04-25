@@ -38,13 +38,18 @@
     <h3>Responses</h3>
     
     
-        200 - Failed to process the request due to an internal error
+        200 - Json object containing all options for a dimension
         <br>
     
-        400 - Failed to process the request due to an internal error
+        400 - Invalid request, reasons can be one of the following:
+  * dataset id was incorrect
+  * edition was incorrect
+  * version was incorrect
+  * dimension was incorrect
+
         <br>
     
-        404 - Failed to process the request due to an internal error
+        404 - No dimension options were found for dimension
         <br>
     
         500 - Failed to process the request due to an internal error

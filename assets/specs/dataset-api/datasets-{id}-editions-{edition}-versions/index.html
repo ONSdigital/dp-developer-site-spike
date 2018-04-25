@@ -34,16 +34,19 @@
     <h3>Responses</h3>
     
     
-        400 - A json list containing all versions for a set type of dataset and edition
-        <br>
-    
-        404 - A json list containing all versions for a set type of dataset and edition
-        <br>
-    
-        500 - A json list containing all versions for a set type of dataset and edition
+        500 - Failed to process the request due to an internal error
         <br>
     
         200 - A json list containing all versions for a set type of dataset and edition
+        <br>
+    
+        400 - Invalid request, reasons can be one of the following:
+  * dataset id was incorrect
+  * edition was incorrect
+
+        <br>
+    
+        404 - No versions found using the id and edition provided
         <br>
     
 

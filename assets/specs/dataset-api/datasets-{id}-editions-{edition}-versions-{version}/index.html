@@ -32,16 +32,19 @@
     <h3>Responses</h3>
     
     
-        200 - Failed to process the request due to an internal error
+        400 - Invalid request, reasons can be one of the following:
+  * dataset id was incorrect
+  * edition was incorrect
+
         <br>
     
-        400 - Failed to process the request due to an internal error
-        <br>
-    
-        404 - Failed to process the request due to an internal error
+        404 - No version was found for an edition of a dataset using the id, edition and version provided
         <br>
     
         500 - Failed to process the request due to an internal error
+        <br>
+    
+        200 - A json object containing the edition and version of a dataset
         <br>
     
 
@@ -58,22 +61,26 @@
     <h3>Responses</h3>
     
     
-        400 - A json object containing a version
+        403 - Forbidden to overwrite version of dataset, already published
         <br>
     
-        401 - A json object containing a version
+        404 - Version was not found for a dataset using the id and edition provided
         <br>
     
-        403 - A json object containing a version
-        <br>
-    
-        404 - A json object containing a version
-        <br>
-    
-        500 - A json object containing a version
+        500 - Failed to process the request due to an internal error
         <br>
     
         201 - A json object containing a version
+        <br>
+    
+        400 - Invalid request, reasons can be one of the following:
+  * invalid request body
+  * dataset id was incorrect
+  * edition was incorrect
+
+        <br>
+    
+        401 - Unauthorised to update version of dataset
         <br>
     
 
