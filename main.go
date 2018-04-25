@@ -268,9 +268,11 @@ func getResponsesData(responses map[int]spec.Response) []Response {
 	var responsesProps []Response
 
 	for key, response := range responses {
+		r := response
+		fmt.Printf("%+v\n", response.Description)
 		statusCode := key
 		responsesProps = append(responsesProps, Response{
-			&response,
+			&r,
 			statusCode,
 		})
 	}

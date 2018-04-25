@@ -28,13 +28,13 @@
     <h3>Responses</h3>
     
     
-        200 - Failed to process the request due to an internal error
-        <br>
-    
-        404 - Failed to process the request due to an internal error
+        404 - No dataset was found using the id provided
         <br>
     
         500 - Failed to process the request due to an internal error
+        <br>
+    
+        200 - A json object for a single Dataset
         <br>
     
 
@@ -49,19 +49,19 @@
     <h3>Responses</h3>
     
     
-        500 - Forbidden to overwrite dataset, already published
-        <br>
-    
-        201 - Forbidden to overwrite dataset, already published
-        <br>
-    
-        400 - Forbidden to overwrite dataset, already published
-        <br>
-    
-        401 - Forbidden to overwrite dataset, already published
-        <br>
-    
         403 - Forbidden to overwrite dataset, already published
+        <br>
+    
+        500 - Failed to process the request due to an internal error
+        <br>
+    
+        201 - A json object containing a dataset which has been created
+        <br>
+    
+        400 - Invalid request body
+        <br>
+    
+        401 - Unauthorised to create/overwrite dataset
         <br>
     
 
@@ -76,19 +76,19 @@
     <h3>Responses</h3>
     
     
-        200 - Failed to process the request due to an internal error
-        <br>
-    
-        400 - Failed to process the request due to an internal error
-        <br>
-    
-        401 - Failed to process the request due to an internal error
-        <br>
-    
-        404 - Failed to process the request due to an internal error
-        <br>
-    
         500 - Failed to process the request due to an internal error
+        <br>
+    
+        200 - A json object for a single Dataset
+        <br>
+    
+        400 - Bad Request due to invalid json in request body
+        <br>
+    
+        401 - Unauthorised to update dataset
+        <br>
+    
+        404 - No dataset was found using the id provided
         <br>
     
 
@@ -101,16 +101,16 @@
     <h3>Responses</h3>
     
     
-        500 - Forbidden to delete dataset, already published
-        <br>
-    
-        204 - Forbidden to delete dataset, already published
-        <br>
-    
-        401 - Forbidden to delete dataset, already published
-        <br>
-    
         403 - Forbidden to delete dataset, already published
+        <br>
+    
+        500 - Failed to process the request due to an internal error
+        <br>
+    
+        204 - The dataset was successfully deleted
+        <br>
+    
+        401 - Unauthorised to delete the dataset
         <br>
     
 

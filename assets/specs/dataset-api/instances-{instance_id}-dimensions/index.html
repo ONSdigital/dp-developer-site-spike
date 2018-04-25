@@ -28,22 +28,22 @@
     <h3>Responses</h3>
     
     
-        500 - The instance was not found
+        200 - Return a list of dimensions
         <br>
     
-        200 - The instance was not found
+        400 - Failed to process the request due to invalid request
         <br>
     
-        400 - The instance was not found
+        401 - The token provided is unauthorised to carry out this operation
         <br>
     
-        401 - The instance was not found
-        <br>
-    
-        403 - The instance was not found
+        403 - The request is forbidden
         <br>
     
         404 - The instance was not found
+        <br>
+    
+        500 - Failed to process the request due to an internal error
         <br>
     
 
@@ -58,13 +58,13 @@
     <h3>Responses</h3>
     
     
-        404 - Failed to process the request due to invalid request
+        404 - The instance was not found
         <br>
     
-        500 - Failed to process the request due to invalid request
+        500 - Failed to process the request due to an internal error
         <br>
     
-        201 - Failed to process the request due to invalid request
+        201 - Dimension was created
         <br>
     
         400 - Failed to process the request due to invalid request

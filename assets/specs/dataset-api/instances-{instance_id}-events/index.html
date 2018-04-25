@@ -33,19 +33,19 @@ the event, time of the event and finally the message offset in kafka
     <h3>Responses</h3>
     
     
-        500 - InstanceId does not match any instances
+        201 - The event was added to the instance
         <br>
     
-        201 - InstanceId does not match any instances
+        400 - Failed to process the request due to invalid request
         <br>
     
-        400 - InstanceId does not match any instances
-        <br>
-    
-        401 - InstanceId does not match any instances
+        401 - The token provided is unauthorised to carry out this operation
         <br>
     
         404 - InstanceId does not match any instances
+        <br>
+    
+        500 - Failed to process the request due to an internal error
         <br>
     
 

@@ -28,10 +28,10 @@
     <h3>Responses</h3>
     
     
-        200 - Failed to process the request due to an internal error
+        200 - Return a single jobs information
         <br>
     
-        404 - Failed to process the request due to an internal error
+        404 - JobId does not match any import jobs
         <br>
     
         500 - Failed to process the request due to an internal error
@@ -51,16 +51,16 @@ import process.
     <h3>Responses</h3>
     
     
-        200 - Failed to process the request due to an internal error
-        <br>
-    
-        400 - Failed to process the request due to an internal error
-        <br>
-    
-        404 - Failed to process the request due to an internal error
+        404 - JobId does not match any import jobs
         <br>
     
         500 - Failed to process the request due to an internal error
+        <br>
+    
+        200 - The job is in a queue
+        <br>
+    
+        400 - Invalid json message was sent to the API
         <br>
     
 
