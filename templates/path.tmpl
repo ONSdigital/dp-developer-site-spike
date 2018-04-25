@@ -1,0 +1,17 @@
+<h1>{{.Path.Title}}</h1>
+{{range .Methods}}
+    <h2>{{.Type}}</h2>
+    <p>{{.Description}}</p>
+    <h3>Parameters</h3>
+    {{range .Parameters}}
+        <p>{{.Name}} - {{.Description}}</p>
+    {{end}}
+    <h3>Responses</h3>
+    {{if .DefaultResponse}}
+        <p>{{.DefaultResponse}}</p>
+    {{end}}
+    {{range .Responses}}
+        {{.StatusCode}} - {{.Description}}
+        <br>
+    {{end}}
+{{end}}

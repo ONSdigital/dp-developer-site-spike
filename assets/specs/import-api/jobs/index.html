@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ONS developer site</title>
+    <style>
+        dd, dt {
+            display: inline-block;
+            font-style: normal;
+        }
+
+        dd:first-of-type {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>/jobs</h1>
+
+    <h2>GET</h2>
+    <p>Lists can be filtered by the job state</p>
+    <h3>Parameters</h3>
+    
+        <p>state - A comma-separated list of job states to filter on. Eg created,submitted</p>
+    
+    <h3>Responses</h3>
+    
+    
+        200 - Failed to process the request due to an internal error
+        <br>
+    
+        500 - Failed to process the request due to an internal error
+        <br>
+    
+
+    <h2>POST</h2>
+    <p>To import a dataset a job must be created first. To do this a data baker recipe is needed and the number of instances which the recipe creates. Once a job is created files can be added to the job and the state of the job can be changed.
+</p>
+    <h3>Parameters</h3>
+    
+        <p>job - </p>
+    
+    <h3>Responses</h3>
+    
+    
+        500 - Invalid json message was sent to the API
+        <br>
+    
+        201 - Invalid json message was sent to the API
+        <br>
+    
+        400 - Invalid json message was sent to the API
+        <br>
+    
+
+</body>
+</html>

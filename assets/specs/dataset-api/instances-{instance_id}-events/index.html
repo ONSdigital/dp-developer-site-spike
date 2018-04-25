@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ONS developer site</title>
+    <style>
+        dd, dt {
+            display: inline-block;
+            font-style: normal;
+        }
+
+        dd:first-of-type {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>/instances/{instance_id}/events</h1>
+
+    <h2>POST</h2>
+    <p>Add a new event into an instance. Events can be for information or error messages.
+Each event must contain a type of event (Info or Error), a message to explain
+the event, time of the event and finally the message offset in kafka
+</p>
+    <h3>Parameters</h3>
+    
+        <p>instance_id - A unique id for an instance</p>
+    
+        <p>event - An event that occurs when importing a dataset</p>
+    
+    <h3>Responses</h3>
+    
+    
+        500 - InstanceId does not match any instances
+        <br>
+    
+        201 - InstanceId does not match any instances
+        <br>
+    
+        400 - InstanceId does not match any instances
+        <br>
+    
+        401 - InstanceId does not match any instances
+        <br>
+    
+        404 - InstanceId does not match any instances
+        <br>
+    
+
+</body>
+</html>

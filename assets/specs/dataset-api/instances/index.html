@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ONS developer site</title>
+    <style>
+        dd, dt {
+            display: inline-block;
+            font-style: normal;
+        }
+
+        dd:first-of-type {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>/instances</h1>
+
+    <h2>GET</h2>
+    <p>Get a list of instances which has been paged</p>
+    <h3>Parameters</h3>
+    
+        <p>limit - The number of resources to be returned</p>
+    
+        <p>offset - The first row of resources to retrieve, starting at 0. Use this parameter as a pagination mechanism along with the limit parameter</p>
+    
+        <p>state - A comma separated list of state values to filter on (e.g. ‘completed,edition-confirmed’)</p>
+    
+    <h3>Responses</h3>
+    
+    
+        401 - Failed to process the request due to invalid request
+        <br>
+    
+        500 - Failed to process the request due to invalid request
+        <br>
+    
+        200 - Failed to process the request due to invalid request
+        <br>
+    
+        400 - Failed to process the request due to invalid request
+        <br>
+    
+
+    <h2>POST</h2>
+    <p>Create an instance which will be imported. To create an instance an import job id and href is required. This is to allow a link back to the import job
+</p>
+    <h3>Parameters</h3>
+    
+        <p>instance - An instance related to an import job</p>
+    
+    <h3>Responses</h3>
+    
+    
+        200 - Failed to process the request due to an internal error
+        <br>
+    
+        400 - Failed to process the request due to an internal error
+        <br>
+    
+        401 - Failed to process the request due to an internal error
+        <br>
+    
+        403 - Failed to process the request due to an internal error
+        <br>
+    
+        500 - Failed to process the request due to an internal error
+        <br>
+    
+
+</body>
+</html>

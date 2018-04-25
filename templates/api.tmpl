@@ -1,10 +1,18 @@
-<h2>{{.Info.Title}}</h2>
-{{.Info.Description}}
+<h1>{{.API.Title}}</h1>
+<p>{{.API.Description}}</p>
+<ul>
+{{range .Paths}}
+    <li><a href="{{.URL}}">{{.Title}}</a></li>
+{{end}}
+</ul>
+{{/*
+<h2>{{.spec.Info.Title}}</h2>
+{{.spec.Info.Description}}
 <dl>
     <dd>Base path:</dd>
-    <dt>{{.BasePath}}</dt>
+    <dt>{{.spec.BasePath}}</dt>
     <dd>Version:</dd>
-    <dt>{{.Info.Version}}</dt>
+    <dt>{{.spec.Info.Version}}</dt>
 </dl>
 <h3>Paths</h3>
 {{ range $key, $path := .Paths.Paths }}
@@ -21,7 +29,6 @@
         {{end}}
         </p>
     {{end}}
-    {{/*
     {{if $path.Post}}}
         <p>
             {{$path.Post.Description}}
@@ -70,5 +77,5 @@
             {{end}}
         </p>
     {{end}}
-    */}}
 {{ end }}
+*/}}

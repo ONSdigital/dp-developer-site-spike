@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ONS developer site</title>
+    <style>
+        dd, dt {
+            display: inline-block;
+            font-style: normal;
+        }
+
+        dd:first-of-type {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>/datasets/{id}/editions</h1>
+
+    <h2>GET</h2>
+    <p>Get a list of editions from a type of dataset</p>
+    <h3>Parameters</h3>
+    
+        <p>id - Id that represents a dataset</p>
+    
+        <p>limit - The number of resources to be returned</p>
+    
+        <p>offset - The first row of resources to retrieve, starting at 0. Use this parameter as a pagination mechanism along with the limit parameter</p>
+    
+    <h3>Responses</h3>
+    
+    
+        400 - A json list containing all editions for a dataset
+        <br>
+    
+        404 - A json list containing all editions for a dataset
+        <br>
+    
+        500 - A json list containing all editions for a dataset
+        <br>
+    
+        200 - A json list containing all editions for a dataset
+        <br>
+    
+
+</body>
+</html>

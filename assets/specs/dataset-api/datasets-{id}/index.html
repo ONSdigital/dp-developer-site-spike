@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ONS developer site</title>
+    <style>
+        dd, dt {
+            display: inline-block;
+            font-style: normal;
+        }
+
+        dd:first-of-type {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>/datasets/{id}</h1>
+
+    <h2>GET</h2>
+    <p>The dataset contains all high level information, for additional details see editions or versions of a dataset. </p>
+    <h3>Parameters</h3>
+    
+        <p>id - Id that represents a dataset</p>
+    
+    <h3>Responses</h3>
+    
+    
+        500 - No dataset was found using the id provided
+        <br>
+    
+        200 - No dataset was found using the id provided
+        <br>
+    
+        404 - No dataset was found using the id provided
+        <br>
+    
+
+    <h2>POST</h2>
+    <p>Create a dataset provided by the ONS that can be filtered using the filter API</p>
+    <h3>Parameters</h3>
+    
+        <p>id - Id that represents a dataset</p>
+    
+        <p>dataset - A new dataset</p>
+    
+    <h3>Responses</h3>
+    
+    
+        403 - Unauthorised to create/overwrite dataset
+        <br>
+    
+        500 - Unauthorised to create/overwrite dataset
+        <br>
+    
+        201 - Unauthorised to create/overwrite dataset
+        <br>
+    
+        400 - Unauthorised to create/overwrite dataset
+        <br>
+    
+        401 - Unauthorised to create/overwrite dataset
+        <br>
+    
+
+    <h2>PUT</h2>
+    <p>Update the metadata for the next release of the dataset. The dataset contains all high level information, for additional details see editions or versions of a dataset.</p>
+    <h3>Parameters</h3>
+    
+        <p>id - Id that represents a dataset</p>
+    
+        <p>dataset - A new dataset</p>
+    
+    <h3>Responses</h3>
+    
+    
+        400 - A json object for a single Dataset
+        <br>
+    
+        401 - A json object for a single Dataset
+        <br>
+    
+        404 - A json object for a single Dataset
+        <br>
+    
+        500 - A json object for a single Dataset
+        <br>
+    
+        200 - A json object for a single Dataset
+        <br>
+    
+
+    <h2>DELETE</h2>
+    <p>Delete an existing dataset</p>
+    <h3>Parameters</h3>
+    
+        <p>id - Id that represents a dataset</p>
+    
+    <h3>Responses</h3>
+    
+    
+        403 - Unauthorised to delete the dataset
+        <br>
+    
+        500 - Unauthorised to delete the dataset
+        <br>
+    
+        204 - Unauthorised to delete the dataset
+        <br>
+    
+        401 - Unauthorised to delete the dataset
+        <br>
+    
+
+</body>
+</html>

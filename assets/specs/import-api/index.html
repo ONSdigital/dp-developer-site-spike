@@ -17,50 +17,18 @@
     </style>
 </head>
 <body>
-<h2>ONS Import API</h2>
-An API used to create and query information about import jobs.
+<h1>ONS Import API</h1>
+<p>An API used to create and query information about import jobs.
+</p>
+<ul>
 
-<dl>
-    <dd>Base path:</dd>
-    <dt>/v1</dt>
-    <dd>Version:</dd>
-    <dt>1.0.0</dt>
-</dl>
-<h3>Paths</h3>
+    <li><a href="/specs/import-api/jobs">/jobs</a></li>
 
-    <h4>/jobs</h4>
-    
-        <h5>GET</h5>
-        <p>Lists can be filtered by the job state</p>
-        <p>
-        
-            state
-            query
-            A comma-separated list of job states to filter on. Eg created,submitted
-            false
-        
-        </p>
-    
-    
+    <li><a href="/specs/import-api/jobs-%7bid%7d">/jobs/{id}</a></li>
 
-    <h4>/jobs/{id}</h4>
-    
-        <h5>GET</h5>
-        <p>Get information about a single job</p>
-        <p>
-        
-            id
-            path
-            A unique job id
-            true
-        
-        </p>
-    
-    
+    <li><a href="/specs/import-api/jobs-%7bid%7d-files">/jobs/{id}/files</a></li>
 
-    <h4>/jobs/{id}/files</h4>
-    
-    
+</ul>
 
 </body>
 </html>

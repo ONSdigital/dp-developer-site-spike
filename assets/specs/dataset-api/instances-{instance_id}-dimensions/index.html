@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ONS developer site</title>
+    <style>
+        dd, dt {
+            display: inline-block;
+            font-style: normal;
+        }
+
+        dd:first-of-type {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>/instances/{instance_id}/dimensions</h1>
+
+    <h2>GET</h2>
+    <p>Get all dimensions from an instance</p>
+    <h3>Parameters</h3>
+    
+        <p>instance_id - A unique id for an instance</p>
+    
+    <h3>Responses</h3>
+    
+    
+        400 - Return a list of dimensions
+        <br>
+    
+        401 - Return a list of dimensions
+        <br>
+    
+        403 - Return a list of dimensions
+        <br>
+    
+        404 - Return a list of dimensions
+        <br>
+    
+        500 - Return a list of dimensions
+        <br>
+    
+        200 - Return a list of dimensions
+        <br>
+    
+
+    <h2>POST</h2>
+    <p>Create a new dimension which is related to an instance</p>
+    <h3>Parameters</h3>
+    
+        <p>instance_id - A unique id for an instance</p>
+    
+        <p>dimension_option - A dimension option from an instance</p>
+    
+    <h3>Responses</h3>
+    
+    
+        400 - Dimension was created
+        <br>
+    
+        404 - Dimension was created
+        <br>
+    
+        500 - Dimension was created
+        <br>
+    
+        201 - Dimension was created
+        <br>
+    
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ONS developer site</title>
+    <style>
+        dd, dt {
+            display: inline-block;
+            font-style: normal;
+        }
+
+        dd:first-of-type {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>/jobs/{id}</h1>
+
+    <h2>GET</h2>
+    <p>Get information about a single job</p>
+    <h3>Parameters</h3>
+    
+        <p>id - A unique job id</p>
+    
+    <h3>Responses</h3>
+    
+    
+        500 - JobId does not match any import jobs
+        <br>
+    
+        200 - JobId does not match any import jobs
+        <br>
+    
+        404 - JobId does not match any import jobs
+        <br>
+    
+
+    <h2>PUT</h2>
+    <p>Update the state of the job. If this is set to submitted, this shall trigger the
+import process.
+</p>
+    <h3>Parameters</h3>
+    
+        <p>id - A unique job id</p>
+    
+        <p>job - </p>
+    
+    <h3>Responses</h3>
+    
+    
+        200 - Failed to process the request due to an internal error
+        <br>
+    
+        400 - Failed to process the request due to an internal error
+        <br>
+    
+        404 - Failed to process the request due to an internal error
+        <br>
+    
+        500 - Failed to process the request due to an internal error
+        <br>
+    
+
+</body>
+</html>

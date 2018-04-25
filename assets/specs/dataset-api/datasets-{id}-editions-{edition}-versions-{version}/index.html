@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ONS developer site</title>
+    <style>
+        dd, dt {
+            display: inline-block;
+            font-style: normal;
+        }
+
+        dd:first-of-type {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>/datasets/{id}/editions/{edition}/versions/{version}</h1>
+
+    <h2>GET</h2>
+    <p>Get a specific version and edition of a dataset</p>
+    <h3>Parameters</h3>
+    
+        <p>edition - An edition of a dataset</p>
+    
+        <p>id - Id that represents a dataset</p>
+    
+        <p>version - A version of a dataset</p>
+    
+    <h3>Responses</h3>
+    
+    
+        200 - Failed to process the request due to an internal error
+        <br>
+    
+        400 - Failed to process the request due to an internal error
+        <br>
+    
+        404 - Failed to process the request due to an internal error
+        <br>
+    
+        500 - Failed to process the request due to an internal error
+        <br>
+    
+
+    <h2>PUT</h2>
+    <p>Update a version for an edition of a dataset, if the state is changed to associated or published, the parent documents(dataset and edition resources) will also be updated. A version can only be updated if the state is not published</p>
+    <h3>Parameters</h3>
+    
+        <p>id - Id that represents a dataset</p>
+    
+        <p>edition - An edition of a dataset</p>
+    
+        <p>version - A version of a dataset</p>
+    
+    <h3>Responses</h3>
+    
+    
+        201 - Failed to process the request due to an internal error
+        <br>
+    
+        400 - Failed to process the request due to an internal error
+        <br>
+    
+        401 - Failed to process the request due to an internal error
+        <br>
+    
+        403 - Failed to process the request due to an internal error
+        <br>
+    
+        404 - Failed to process the request due to an internal error
+        <br>
+    
+        500 - Failed to process the request due to an internal error
+        <br>
+    
+
+</body>
+</html>

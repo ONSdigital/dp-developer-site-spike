@@ -15,11 +15,19 @@ import (
 	"github.com/unrolled/render"
 )
 
-type SiteStructure struct {
+type Layout struct {
 	Title string
-	APIs  []API
 	Nav   []NavItem
-	Sitemap
+}
+
+type APITemplateData struct {
+	Layout
+	API
+}
+
+type PathTemplateData struct {
+	Layout
+	Path
 }
 
 type NavItem struct {
@@ -28,10 +36,42 @@ type NavItem struct {
 }
 
 type API struct {
-	spec *spec.Swagger
+	Title       string
+	Version     string
+	Description string
+	Paths       []Path
+	URL         string
 }
 
-type Sitemap struct {
+type Path struct {
+	Title   string
+	Methods []Method
+	URL     string
+}
+
+type methodType string
+
+const (
+	Get     methodType = "GET"
+	Post    methodType = "POST"
+	Put     methodType = "PUT"
+	Delete  methodType = "DELETE"
+	Head    methodType = "HEAD"
+	Options methodType = "OPTIONS"
+	Patch   methodType = "PATCH"
+)
+
+type Method struct {
+	Type            methodType
+	Description     string
+	Parameters      []spec.ParamProps
+	DefaultResponse *spec.Response
+	Responses       []Response
+}
+
+type Response struct {
+	*spec.Response
+	StatusCode int
 }
 
 type sourceSpec struct {
@@ -81,6 +121,8 @@ func main() {
 		return
 	}
 
+	var APIs []API
+
 	for _, sourceSpec := range sourceSpecs {
 		func() {
 			fmt.Printf("Getting swagger spec: %s\n", sourceSpec.URL)
@@ -104,22 +146,28 @@ func main() {
 				return
 			}
 
-			os.MkdirAll("assets/specs/"+sourceSpec.ID, os.FileMode(int(0777)))
-			fmt.Printf("Creating directory: %q\n", "assets/specs/"+sourceSpec.ID)
-
 			spec.ExpandSpec(&APISpec, &spec.ExpandOptions{})
 
-			file, err := os.Create("assets/specs/" + sourceSpec.ID + "/index.html")
-			if err != nil {
-				log.Println(err)
-				return
+			APIData := API{
+				Title:       APISpec.Info.Title,
+				Version:     APISpec.Info.Version,
+				Description: APISpec.Info.Description,
+				URL:         makeSpecRootDirectory(sourceSpec.ID),
 			}
 
-			defer file.Close()
+			for key, value := range APISpec.Paths.Paths {
+				APIData.Paths = append(APIData.Paths, Path{
+					Title:   key,
+					URL:     makeSpecPathDirectories(sourceSpec.ID, key),
+					Methods: getMethodsData(value),
+				})
+			}
 
-			renderer.HTML(file, 0, "api", APISpec)
+			APIs = append(APIs, APIData)
 		}()
 	}
+
+	buildSpecAssets(renderer, APIs)
 }
 
 func convertMarkdownFileToHTML(path string) []byte {
@@ -130,4 +178,160 @@ func convertMarkdownFileToHTML(path string) []byte {
 	}
 
 	return bytes
+}
+
+func getMethodsData(pathItem spec.PathItem) []Method {
+	var methods []Method
+	if pathItem.Get != nil {
+		methods = append(methods, Method{
+			Type:            Get,
+			Description:     pathItem.Get.Description,
+			Parameters:      getParametersData(pathItem.Get.Parameters),
+			DefaultResponse: pathItem.Get.Responses.Default,
+			Responses:       getResponsesData(pathItem.Get.Responses.ResponsesProps.StatusCodeResponses),
+		})
+	}
+	if pathItem.Post != nil {
+		methods = append(methods, Method{
+			Type:            Post,
+			Description:     pathItem.Post.Description,
+			Parameters:      getParametersData(pathItem.Post.Parameters),
+			DefaultResponse: pathItem.Post.Responses.Default,
+			Responses:       getResponsesData(pathItem.Post.Responses.ResponsesProps.StatusCodeResponses),
+		})
+	}
+	if pathItem.Put != nil {
+		methods = append(methods, Method{
+			Type:            Put,
+			Description:     pathItem.Put.Description,
+			Parameters:      getParametersData(pathItem.Put.Parameters),
+			DefaultResponse: pathItem.Put.Responses.Default,
+			Responses:       getResponsesData(pathItem.Put.Responses.ResponsesProps.StatusCodeResponses),
+		})
+	}
+	if pathItem.Delete != nil {
+		methods = append(methods, Method{
+			Type:            Delete,
+			Description:     pathItem.Delete.Description,
+			Parameters:      getParametersData(pathItem.Delete.Parameters),
+			DefaultResponse: pathItem.Delete.Responses.Default,
+			Responses:       getResponsesData(pathItem.Delete.Responses.ResponsesProps.StatusCodeResponses),
+		})
+	}
+	if pathItem.Head != nil {
+		methods = append(methods, Method{
+			Type:            Head,
+			Description:     pathItem.Head.Description,
+			Parameters:      getParametersData(pathItem.Head.Parameters),
+			DefaultResponse: pathItem.Head.Responses.Default,
+			Responses:       getResponsesData(pathItem.Head.Responses.ResponsesProps.StatusCodeResponses),
+		})
+	}
+	if pathItem.Options != nil {
+		methods = append(methods, Method{
+			Type:            Options,
+			Description:     pathItem.Options.Description,
+			Parameters:      getParametersData(pathItem.Options.Parameters),
+			DefaultResponse: pathItem.Options.Responses.Default,
+			Responses:       getResponsesData(pathItem.Options.Responses.ResponsesProps.StatusCodeResponses),
+		})
+	}
+	if pathItem.Patch != nil {
+		methods = append(methods, Method{
+			Type:            Patch,
+			Description:     pathItem.Patch.Description,
+			Parameters:      getParametersData(pathItem.Patch.Parameters),
+			DefaultResponse: pathItem.Patch.Responses.Default,
+			Responses:       getResponsesData(pathItem.Patch.Responses.ResponsesProps.StatusCodeResponses),
+		})
+	}
+
+	return methods
+}
+
+func getParametersData(parameters []spec.Parameter) []spec.ParamProps {
+	var paramsProps []spec.ParamProps
+
+	for _, parameter := range parameters {
+		paramsProps = append(paramsProps, parameter.ParamProps)
+	}
+
+	return paramsProps
+}
+
+func getResponsesData(responses map[int]spec.Response) []Response {
+	var responsesProps []Response
+
+	for key, response := range responses {
+		statusCode := key
+		responsesProps = append(responsesProps, Response{
+			&response,
+			statusCode,
+		})
+	}
+
+	return responsesProps
+}
+
+func makeSpecRootDirectory(ID string) string {
+	directoryName := "assets/specs/" + ID
+	os.MkdirAll(directoryName, os.FileMode(int(0777)))
+	fmt.Printf("Creating directory: %q\n", directoryName)
+	return strings.TrimPrefix(directoryName, "assets")
+}
+
+func makeSpecPathDirectories(ID string, path string) string {
+	pathWithoutSlashes := strings.Replace(strings.TrimPrefix(path, "/"), "/", "-", -1)
+	directoryName := "assets/specs/" + ID + "/" + pathWithoutSlashes
+	os.MkdirAll(directoryName, os.FileMode(int(0777)))
+	fmt.Printf("Creating path directory: %q\n", directoryName)
+	return strings.TrimPrefix(directoryName, "assets")
+}
+
+func buildSpecAssets(renderer *render.Render, APIs []API) {
+	for _, APIdata := range APIs {
+		func() {
+			file, err := os.Create("assets/" + APIdata.URL + "/index.html")
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
+			defer file.Close()
+
+			err = renderer.HTML(file, 0, "api", APITemplateData{
+				API:    APIdata,
+				Layout: Layout{},
+			})
+			if err != nil {
+				log.Println(err)
+				return
+			}
+		}()
+
+		buildSpecPathsAssets(renderer, APIdata.Paths)
+	}
+}
+
+func buildSpecPathsAssets(renderer *render.Render, Paths []Path) {
+	for _, pathData := range Paths {
+		func() {
+			file, err := os.Create("assets/" + pathData.URL + "/index.html")
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
+			defer file.Close()
+
+			err = renderer.HTML(file, 0, "path", PathTemplateData{
+				Path:   pathData,
+				Layout: Layout{},
+			})
+			if err != nil {
+				log.Println(err)
+				return
+			}
+		}()
+	}
 }
